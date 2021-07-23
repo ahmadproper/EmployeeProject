@@ -1,1 +1,5 @@
+php artisan migrate::fresh --seed
 Menit ke 38:00
+Menit ke 53:00     23-07-2021 09:38
+Menit ke 57:00     23-07-2021 10:15
+Menit ke 01:11:32  23-07-2021 11:03
