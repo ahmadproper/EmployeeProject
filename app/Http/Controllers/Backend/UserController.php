@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * Display a listing of the resource.     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        #return view('users.index');
         $users = User::all();
+        if ($request->has('search')) {
+            $users = User::where('username', 'like', "%{$request->search}%")->orWhere('email', 'like', "%{$request->search}%")->get();
+        }
         return view('users.index', compact('users'));
     }
 
@@ -41,15 +41,14 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        return User::create([
+        User::create([
             'username' => $request->username,
             'first_name' =>  $request->first_name,
             'last_name' =>  $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('users.index')->with('message', 'User Register Succesfullu');
-  
+        return redirect()->route('users.index')->with('message', 'User Register Succesfully');  
         
     }
 
